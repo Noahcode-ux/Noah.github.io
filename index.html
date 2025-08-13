@@ -25,9 +25,7 @@
     opacity: 0;
     animation: fadeIn 0.6s forwards;
   }
-  @keyframes fadeIn {
-    to { transform: scale(1); opacity: 1; }
-  }
+  @keyframes fadeIn { to { transform: scale(1); opacity: 1; } }
   h2 {
     text-align: center;
     margin: 0 0 20px;
@@ -37,9 +35,7 @@
     opacity: 0;
     animation: slideDown 0.5s forwards 0.2s;
   }
-  @keyframes slideDown {
-    to { transform: translateY(0); opacity: 1; }
-  }
+  @keyframes slideDown { to { transform: translateY(0); opacity: 1; } }
   .row { margin: 16px 0; }
   label { font-weight: 600; display: block; margin-bottom: 6px; }
   input[type="text"], textarea {
@@ -68,10 +64,7 @@
     color: #2563eb;
     font-weight: 700;
   }
-  .choices label:hover {
-    transform: scale(1.05);
-    color: #1d4ed8;
-  }
+  .choices label:hover { transform: scale(1.05); color: #1d4ed8; }
   button {
     margin-top: 18px;
     width: 100%;
@@ -84,24 +77,10 @@
     color: #fff;
     transition: transform 0.2s, filter 0.2s;
   }
-  button:hover {
-    filter: brightness(1.05);
-    transform: scale(1.02);
-  }
+  button:hover { filter: brightness(1.05); transform: scale(1.02); }
   .note { font-size: .9rem; color: #6b7280; margin-top: 8px; text-align: center; }
-  .ok {
-    display: none;
-    margin-top: 12px;
-    color: #15803d;
-    font-weight: 700;
-    text-align: center;
-    animation: pop 0.3s ease-out;
-  }
-  @keyframes pop {
-    0% { transform: scale(0.5); opacity: 0; }
-    80% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); }
-  }
+  .ok { display: none; margin-top: 12px; color: #15803d; font-weight: 700; text-align: center; animation: pop 0.3s ease-out; }
+  @keyframes pop { 0% { transform: scale(0.5); opacity: 0; } 80% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); } }
   .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 560px){ .two { grid-template-columns:1fr; } }
 </style>
@@ -111,7 +90,7 @@
     <h2>EMS Feedback</h2>
 
     <!-- Netlify form -->
-    <form name="ems-feedback" method="POST" data-netlify="true">
+    <form name="ems-feedback" netlify>
       <input type="hidden" name="form-name" value="ems-feedback">
 
       <div class="two">
@@ -182,3 +161,4 @@ form.addEventListener('submit', (ev) => {
 </script>
 </body>
 </html>
+
