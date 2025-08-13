@@ -6,100 +6,179 @@
 <title>EMS Feedback Form</title>
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background: #f4f7f8;
+    font-family: system-ui, Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fb, #e0e7ff);
     padding: 20px;
     display: flex;
     justify-content: center;
+    min-height: 100vh;
+    align-items: center;
   }
-  form {
-    background: white;
-    padding: 20px 30px;
-    border-radius: 8px;
-    max-width: 600px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  .card {
+    background: #fff;
+    width: 100%;
+    max-width: 640px;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    transform: scale(0.95);
+    opacity: 0;
+    animation: fadeIn 0.6s forwards;
+  }
+  @keyframes fadeIn {
+    to { transform: scale(1); opacity: 1; }
   }
   h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0 0 20px;
+    color: #1e40af;
+    letter-spacing: 1px;
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: slideDown 0.5s forwards 0.2s;
   }
-  label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
+  @keyframes slideDown {
+    to { transform: translateY(0); opacity: 1; }
   }
-  input[type="text"],
-  textarea {
+  .row { margin: 16px 0; }
+  label { font-weight: 600; display: block; margin-bottom: 6px; }
+  input[type="text"], textarea {
     width: 100%;
-    padding: 8px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border 0.3s, box-shadow 0.3s;
   }
-  .checkbox-group,
-  .radio-group {
-    margin-top: 8px;
+  input[type="text"]:focus, textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 8px rgba(37,99,235,0.3);
+    outline: none;
   }
-  .checkbox-group label,
-  .radio-group label {
-    font-weight: normal;
-    margin-right: 15px;
-  }
-  button {
-    margin-top: 20px;
-    width: 100%;
-    padding: 12px;
-    background: #007bff;
-    color: white;
-    border: none;
-    font-size: 1.1em;
-    border-radius: 6px;
+  .choices label {
+    font-weight: 500;
+    margin-right: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.2s, color 0.2s;
     cursor: pointer;
   }
-  button:hover {
-    background: #0056b3;
+  .choices input:checked + span {
+    color: #2563eb;
+    font-weight: 700;
   }
+  .choices label:hover {
+    transform: scale(1.05);
+    color: #1d4ed8;
+  }
+  button {
+    margin-top: 18px;
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background: linear-gradient(90deg,#2563eb,#1e40af);
+    color: #fff;
+    transition: transform 0.2s, filter 0.2s;
+  }
+  button:hover {
+    filter: brightness(1.05);
+    transform: scale(1.02);
+  }
+  .note { font-size: .9rem; color: #6b7280; margin-top: 8px; text-align: center; }
+  .ok {
+    display: none;
+    margin-top: 12px;
+    color: #15803d;
+    font-weight: 700;
+    text-align: center;
+    animation: pop 0.3s ease-out;
+  }
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px){ .two { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
+  <div class="card">
+    <h2>EMS Feedback</h2>
 
-<form action="https://getform.io/f/bgdjdyza" method="POST" id="emsFeedbackForm">
-  <h2>EMS Feedback Form</h2>
+    <!-- Netlify form -->
+    <form name="ems-feedback" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="ems-feedback">
 
-  <label for="name">Name *</label>
-  <input type="text" id="name" name="name" required />
+      <div class="two">
+        <div class="row">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="row">
+          <label for="grade">Grade *</label>
+          <input type="text" id="grade" name="grade" required />
+        </div>
+      </div>
 
-  <label for="grade">Grade *</label>
-  <input type="text" id="grade" name="grade" required />
+      <div class="row">
+        <label>Main food *</label>
+        <div class="choices">
+          <label><input type="radio" name="main_food" value="Hotdogs" required> <span>Hotdogs</span></label>
+          <label><input type="radio" name="main_food" value="Wrap Burger" required> <span>Wrap Burger</span></label>
+          <label><input type="radio" name="main_food" value="Corndog" required> <span>Corndog</span></label>
+        </div>
+      </div>
 
-  <label>Main Food *</label>
-  <div grade="radio-group">
-    <label><input type="radio" name="main_food" value="Hotdogs" required> Hotdogs</label>
-    <label><input type="radio" name="main_food" value="Wrap Burger" required> Wrap Burger</label>
-    <label><input type="radio" name="main_food" value="Corndog" required> Corndog</label>
+      <div class="row">
+        <label>Snacks (choose any)</label>
+        <div class="choices">
+          <label><input type="checkbox" name="snacks" value="Sweet jars"> <span>Sweet jars</span></label>
+          <label><input type="checkbox" name="snacks" value="Fruit sticks"> <span>Fruit sticks</span></label>
+          <label><input type="checkbox" name="snacks" value="Juice box"> <span>Juice box</span></label>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="other">Other</label>
+        <input type="text" id="other" name="other" placeholder="Anything else?" />
+      </div>
+
+      <div class="row">
+        <label>Toys (choose any)</label>
+        <div class="choices">
+          <label><input type="checkbox" name="toys" value="Stress ball"> <span>Stress ball</span></label>
+          <label><input type="checkbox" name="toys" value="Bubbles"> <span>Bubbles</span></label>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="comments">Comments</label>
+        <textarea id="comments" name="comments" rows="4" placeholder="Your feedback"></textarea>
+      </div>
+
+      <button type="submit">Submit</button>
+      <div class="ok" id="ok">✅ Thank you! Your feedback was submitted.</div>
+      <div class="note">* Required fields</div>
+    </form>
   </div>
 
-  <label>Snacks</label>
-  <div grade="checkbox-group">
-    <label><input type="checkbox" name="snacks" value="Sweet jars"> Sweet jars</label>
-    <label><input type="checkbox" name="snacks" value="Fruit sticks"> Fruit sticks</label>
-    <label><input type="checkbox" name="snacks" value="Juice box"> Juice box</label>
-  </div>
+<script>
+const form = document.querySelector('form[name="ems-feedback"]');
+const ok = document.getElementById('ok');
 
-  <label for="other">Other</label>
-  <input type="text" id="other" name="other" />
-
-  <label>Toys</label>
-  <div grade="checkbox-group">
-    <label><input type="checkbox" name="toys" value="Stress ball"> Stress ball</label>
-    <label><input type="checkbox" name="toys" value="Bubbles"> Bubbles</label>
-  </div>
-
-  <label for="comments">Comments</label>
-  <textarea id="comments" name="comments" rows="4"></textarea>
-
-  <button type="submit">Submit Feedback</button>
-</form>
-
+form.addEventListener('submit', (ev) => {
+  ev.preventDefault();
+  ok.style.display = 'block';
+  setTimeout(() => {
+    ok.style.display = 'none';
+    form.reset();
+  }, 3000);
+});
+</script>
 </body>
 </html>
